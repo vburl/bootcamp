@@ -39,6 +39,30 @@ def profile(request, username):
         })
 
 @login_required
+def user_feed(request, username):
+    return profile(request, username)
+
+@login_required    
+def user_likes(request, username):
+    pass
+
+@login_required    
+def user_articles(request, username):
+    pass
+
+@login_required    
+def user_favorites(request, username):
+    pass
+
+@login_required    
+def user_questions(request, username):
+    pass
+
+@login_required    
+def user_answers(request, username):
+    pass
+
+@login_required
 def settings(request):
     user = request.user
     if request.method == 'POST':

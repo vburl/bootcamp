@@ -3,7 +3,10 @@ from django.db.models.signals import post_save
 from django.db import models
 from django.conf import settings
 import os.path
-from bootcamp.activities.models import Notification
+from bootcamp.activities.models import Activity, Notification
+from bootcamp.feeds.models import Feed
+from bootcamp.articles.models import Article
+from bootcamp.questions.models import Question, Answer
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
@@ -108,6 +111,24 @@ class Profile(models.Model):
                 from_user=self.user, 
                 to_user=answer.user, 
                 answer=answer).delete()
+
+    def get_feed_count(self):
+        return Feed.objects.filter(user=self, parent=None).count()
+
+    def get_likes_count(self):
+        return Activity.objects.filter(user=self, activity_type=Activity.LIKE).count()
+
+    def get_articles_count(self):
+        return Article.objects.filter(create_user=self, status=Article.PUBLISHED).count()
+
+    def get_favorites_count(self):
+        return Activity.objects.filter(user=self, activity_type=Activity.FAVORITE).count()
+
+    def get_questions_count(self):
+        return Question.objects.filter(user=self).count()
+
+    def get_answers_count(self):
+        return Answer.objects.filter(user=self).count()
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

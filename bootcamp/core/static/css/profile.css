@@ -1,5 +1,5 @@
 .profile {
-  margin-top: 1em;
+  margin-top: 1.4em;
 }
 
 .user-profile .picture {
@@ -14,4 +14,24 @@
 
 .user-profile ul li {
   list-style: none;
+  margin-bottom: .2em;
+}
+
+.user-profile ul li span.glyphicon {
+  margin-right: .2em;
+  color: #cccccc;
+}
+
+.user-stats span.badge {
+  background-color: #428bca;
+}
+
+.user-stats .active span.badge {
+  color: #428bca;
+  background-color: #ffffff;
+}
+
+.user-stats div {
+  margin-top: .1em;
+  text-align: center;
 }
