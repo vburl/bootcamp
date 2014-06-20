@@ -1,0 +1,28 @@
+{% extends 'core/profile_base.html' %}
+{% load i18n %}
+
+{% block head_extra %}
+  <link href="{{ STATIC_URL }}css/feeds.css" rel="stylesheet">
+  <script src="{{ STATIC_URL }}js/jquery.bullseye-1.0-min.js"></script>
+  <script src="{{ STATIC_URL }}js/feeds.js"></script>
+{% endblock head_extra %}
+
+{% block container %}
+  <h4>{% trans 'Feed Posted' %}</h4>
+  <div class="stream-update">
+    <a href="#"><span class="new-posts"></span> new posts</a>
+  </div>
+  <ul class="stream">
+    {% for feed in feeds %}
+      {% include 'feeds/partial_feed.html' with feed=feed %}
+    {% endfor %}
+  </ul>
+  <div class="load">
+    <img src="{{ STATIC_URL }}img/loading.gif">
+  </div>
+  <form method="get" action="{% url 'load' %}" id="load_feed" autocomplete="off">
+    <input type="hidden" name="feed_source" id="feed_source" value="{{ page_user.pk }}">
+    <input type="hidden" name="from_feed" value="{{ from_feed }}">
+    <input type="hidden" name="page" value="{{ page }}">
+  </form>
+{% endblock container %}

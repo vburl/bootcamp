@@ -5,9 +5,8 @@
 
 {% block head %}
   <link href="{{ STATIC_URL }}css/profile.css" rel="stylesheet">
-  <link href="{{ STATIC_URL }}css/feeds.css" rel="stylesheet">
-  <script src="{{ STATIC_URL }}js/jquery.bullseye-1.0-min.js"></script>
-  <script src="{{ STATIC_URL }}js/feeds.js"></script>
+  {% block head_extra %}
+  {% endblock head_extra %}
 {% endblock head %}
 
 {% block main %}
@@ -31,7 +30,7 @@
           {% if page_user.profile.url %}
             <li><span class="glyphicon glyphicon-globe"></span> <a href="{{ page_user.profile.get_url }}" target="_blank">{{ page_user.profile.get_url }}</a></li>
           {% endif %}
-          <li><span class="glyphicon glyphicon-time"></span> Joined on {{ page_user.date_joined|date:"d M Y" }}</li>
+          <li><span class="glyphicon glyphicon-time"></span> Joined on {{ page_user.date_joined|date:"M d, Y" }}</li>
         </ul>
       </div>
       <div class="col-md-9">
@@ -92,23 +91,8 @@
           </li>
         </ul>
         <hr>
-        <h4>{% trans 'Feed Posted' %}</h4>
-        <div class="stream-update">
-          <a href="#"><span class="new-posts"></span> new posts</a>
-        </div>
-        <ul class="stream">
-          {% for feed in feeds %}
-            {% include 'feeds/partial_feed.html' with feed=feed %}
-          {% endfor %}
-        </ul>
-        <div class="load">
-          <img src="{{ STATIC_URL }}img/loading.gif">
-        </div>
-        <form method="get" action="{% url 'load' %}" id="load_feed" autocomplete="off">
-          <input type="hidden" name="feed_source" id="feed_source" value="{{ page_user.pk }}">
-          <input type="hidden" name="from_feed" value="{{ from_feed }}">
-          <input type="hidden" name="page" value="{{ page }}">
-        </form>
+        {% block container %}
+        {% endblock container %}
       </div>
     </div>
   </div>

@@ -31,7 +31,7 @@ def profile(request, username):
     from_feed = -1
     if feeds:
         from_feed = feeds[0].id
-    return render(request, 'core/profile.html', {
+    return render(request, 'core/profile_feed.html', {
         'page_user': page_user, 
         'feeds': feeds,
         'from_feed': from_feed,
@@ -44,23 +44,28 @@ def user_feed(request, username):
 
 @login_required    
 def user_likes(request, username):
-    pass
+    page_user = get_object_or_404(User, username=username)
+    return render(request, 'core/profile_likes.html', {'page_user': page_user})
 
 @login_required    
 def user_articles(request, username):
-    pass
+    page_user = get_object_or_404(User, username=username)
+    return render(request, 'core/profile_articles.html', {'page_user': page_user})
 
 @login_required    
 def user_favorites(request, username):
-    pass
+    page_user = get_object_or_404(User, username=username)
+    return render(request, 'core/profile_favorites.html', {'page_user': page_user})
 
 @login_required    
 def user_questions(request, username):
-    pass
+    page_user = get_object_or_404(User, username=username)
+    return render(request, 'core/profile_questions.html', {'page_user': page_user})
 
 @login_required    
 def user_answers(request, username):
-    pass
+    page_user = get_object_or_404(User, username=username)
+    return render(request, 'core/profile_answers.html', {'page_user': page_user})
 
 @login_required
 def settings(request):
